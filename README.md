@@ -1,29 +1,44 @@
-Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
-
 # Environment Set up (pip or conda)
-* Option 1: use the supplied file `environment.yml` to create a new environment with conda
-* Option 2: use the supplied file `requirements.txt` to create a new environment with pip
-    
-## Repositories
-* Create a directory for the project and initialize git.
-    * As you work on the code, continually commit changes. Trained models you want to use in production must be committed to GitHub.
-* Connect your local git repo to GitHub.
-* Setup GitHub Actions on your repo. You can use one of the pre-made GitHub Actions if at a minimum it runs pytest and flake8 on push and requires both to pass without error.
-    * Make sure you set up the GitHub Action to have the same version of Python as you used in development.
+* Use the supplied file `environment.yml` to create a new environment with conda
 
-# Data
-* Download census.csv and commit it to dvc.
-* This data is messy, try to open it in pandas and see what you get.
-* To clean it, use your favorite text editor to remove all spaces.
+# Deploying a Scalable ML Pipeline with FastAPI
 
-# Model
-* Using the starter code, write a machine learning model that trains on the clean data and saves the model. Complete any function that has been started.
-* Write unit tests for at least 3 functions in the model code.
-* Write a function that outputs the performance of the model on slices of the data.
-    * Suggestion: for simplicity, the function can just output the performance on slices of just the categorical features.
-* Write a model card using the provided template.
+This project demonstrates how to build, train, and deploy a machine learning pipeline using FastAPI. The model predicts whether an individual's income exceeds $50K/year based on demographic and employment data from the UCI Census Income dataset.
 
-# API Creation
-*  Create a RESTful API using FastAPI this must implement:
-    * GET on the root giving a welcome message.
-    * POST that does model inference.
+## Features
+
+- Data preprocessing with one-hot encoding and label binarization
+- Model training using a Random Forest Classifier
+- RESTful API for inference using FastAPI
+- Unit tests for core ML functions
+- Example client script for local API interaction
+
+## How to Run
+
+1. **Install dependencies**  
+   Make sure you have Python 3.10 and install requirements 
+
+2. **Train the model**  
+   ```
+   python train_model.py
+   ```
+
+3. **Start the API**  
+   ```
+   uvicorn main:app --reload
+   ```
+
+4. **Test the API**  
+   In a new terminal, run:
+   ```
+   python local_api.py
+   ```
+
+5. **Run unit tests**  
+   ```
+   pytest test_ml.py
+   ```
+
+## Notes
+
+- The model and encoder files (`model.pkl`, `encoder.pkl`) are not tracked in git.
